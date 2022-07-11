@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading.Tasks; 
 // changes
 // unset  
 namespace ConsoleApp_LinqPrac
@@ -14,21 +14,46 @@ namespace ConsoleApp_LinqPrac
             var person = Person.GetPersonData();
             var Pinfo = PersonInfo.GetPersonInfoData();
 
-            // Left Outer Join Query Based
-            var loj = from pd in person
-                      join pi in Pinfo
-                      on pd.info equals pi.infoid into GroupedPerson
-                      from gp in GroupedPerson.DefaultIfEmpty()
-                      select new
-                      {
-                          PersonName = pd.pname,
-                          City = gp == null ? "No City" : gp.city
-                      };
+            // GroupBy
+            var gb = from g in person
+                     group g by g.salary into b
+                     select new
+                     {
+                         Salary = b.Key,
+                         PersonCount = b.Count()
+                     };
 
-            foreach(var p in loj)
+            foreach (var item in gb)
             {
-                Console.WriteLine($"{p.PersonName} - {p.City}");
+                Console.WriteLine($"{item.Salary} - {item.PersonCount}");
             }
+            
+
+
+            // OrderBy 
+            //var ob = from o in person orderby o.salary,o.pname descending select o;
+            //var ob = person.OrderByDescending(o => o.salary).ThenBy(o => o.pname);
+
+            //foreach(var item in ob)
+            //{
+            //    Console.WriteLine($"{item.pname} - {item.salary}");
+            //}
+
+            // Left Outer Join Query Based
+            //var loj = from pd in person
+            //          join pi in Pinfo
+            //          on pd.info equals pi.infoid into GroupedPerson
+            //          from gp in GroupedPerson.DefaultIfEmpty()
+            //          select new
+            //          {
+            //              PersonName = pd.pname,
+            //              City = gp == null ? "No City" : gp.city
+            //          };
+
+            //foreach(var p in loj)
+            //{
+            //    Console.WriteLine($"{p.PersonName} - {p.City}");
+            //}
 
             //Inner Join Query Based
             //var ij = from pd in person
