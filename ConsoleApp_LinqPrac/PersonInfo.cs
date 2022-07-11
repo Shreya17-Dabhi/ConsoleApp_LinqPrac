@@ -17,7 +17,8 @@ namespace ConsoleApp_LinqPrac
             return new List<PersonInfo>
             {
                 new PersonInfo{infoid=1,city="Rajkot",country="India"},
-                new PersonInfo{infoid=2,city="A'Bad",country="India"}
+                new PersonInfo{infoid=2,city="A'Bad",country="India"},
+                new PersonInfo{infoid=3,city="Surat",country="India"}
             };
         }
     }
